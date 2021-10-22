@@ -9,14 +9,16 @@ how did the distribution of tropical storms (& thus hurricanes) change on the Sa
 
 ## Files
 
-The files of importance are 'fetch_data.py' and 'backend.m'. The former fetches the HURDAT2 dataset from the National Oceanic and Atmospherics
-Administration and puts the data into a parseable '.csv' file.
+The files of importance are `fetch_data.py` and `backend.m`. The former fetches the HURDAT2 dataset from the National Oceanic and Atmospherics
+Administration and puts the data into a parseable .csv file.
 
-'backend.m' takes the '.csv' file and analyzes the data, such as the frequency of tropical storms, hurricanes, length of hurricane season, and more.
+`backend.m` takes the .csv file created from the python script and analyzes the data, such as the frequency of tropical storms, hurricanes,
+length of tropical/hurricane season, and more.
 
 ## Side Note
 
-'fetch_data.py' can be used for your own purposes to get your own '.csv' file as the NOAA doesn't upload a '.csv' file, but is uploaded in an unparsable format.
+`fetch_data.py` can be used for your own purposes to get your own .csv file as the NOAA doesn't upload a .csv file, but is uploaded in an
+unparsable .html format. In order to do this, you'll need the python libraries listed in `environment.yml` such as `numpy, pandas, and requests`.
 See the license for compliance.
 
 # Outcome of Analysis
