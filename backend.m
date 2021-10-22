@@ -1,40 +1,42 @@
-hurricane_data = readtable('filtered.csv');
-hurricane_data = hurricane_data(:,2:end);
-raw_dates = string(hurricane_data.date);
-exp = '(^\d{4}(?=(\d{2})*$)|\d{2})';
-dates_reg = regexp(raw_dates, exp, 'match');
-dates = {};
+hurricane_data = readtable('filtered.csv'); %get HURDAT2 data.
+hurricane_data = hurricane_data(:,2:end); %filter out unnecessary column
 
-for i=1:length(dates_reg)
-    data = dates_reg{i};
-    year = data(1);
-    month = data(2);
-    day = data(3);
+raw_dates = string(hurricane_data.date); %get list of dates in HURDAT2 dataset.
+exp = '(^\d{4}(?=(\d{2})*$)|\d{2})'; %regex expression for finding dates.
+dates_reg = regexp(raw_dates, exp, 'match'); %get matched dates.
+dates = {}; %matrix for list of dates in HURDAT.
+
+for i=1:length(dates_reg) %loop over matched dates.
+    data = dates_reg{i}; %get index of date data.
+    year = data(1); %get year of indexed matched date.
+    month = data(2); %get month
+    day = data(3); %get year.
     
-    date = sprintf('%s/%s/%s', year, month, day);
-    dates(end+1,:) = {date};
+    date = sprintf('%s/%s/%s', year, month, day); %format date into year/month/day
+    dates(end+1,:) = {date}; %append matched year to matrix list of dates.
 end
 
+%make matrix list of dates into datetime objects. 
 hurricane_data.date = datetime(dates, 'InputFormat', 'yyy/MM/dd');
 
-test_year = get_hurricane_data_for_year(hurricane_data, 1980);
 
+test_year = get_storm_data_for_year(hurricane_data, 1980); % test
 
-
-%classify major hurricanes
-major_rows = hurricane_data.maximum_sustained_wind_knots >= 96;
+%classify major hurricanes according to Saffir-Simpson scale.
+major_rows = hurricane_data.maximum_sustained_wind_knots >= 96; %hurricanes >= 96 are Cat3+.
 hurricane_data(major_rows, {'status_of_system'}) = {'M'}; %classification for major hurricane
 
-get_hurricane_data(hurricane_data);
+get_storm_data(hurricane_data); % test
 
-function data=get_hurricane_data_for_year(hurricane_data, year)
+% function to find storm data for the given year.
+function data=get_storm_data_for_year(hurricane_data, year)
     filter_exp = hurricane_data.date.Year == year;
     data = hurricane_data(filter_exp,:);
     
 end
 
 
-function data=get_hurricane_data(hurricane_data)
+function data=get_storm_data(hurricane_data)
     [redund_val, unique_years] = findgroups(hurricane_data.date.Year);
     for year=1:length(unique_years)
         
