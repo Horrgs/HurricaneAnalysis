@@ -1,0 +1,8 @@
+name: HurricaneAnalysis
+channels:
+  - defaults
+dependencies:
+  - pandas
+  - requests
+  - numpy
+prefix: C:\Users\horrg\anaconda3\envs\HurricaneAnalysis
