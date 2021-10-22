@@ -21,7 +21,7 @@ length of tropical/hurricane season, and more.
 unparsable .html format. In order to do this, you'll need the python libraries listed in `environment.yml` such as `numpy, pandas, and requests`.
 See the license for compliance.
 
-If you use Anaconda, you'll be able to create an environment with using the `environment.yml`. See Anaconda documentation.
+If you use Anaconda, you'll be able to create an environment with using the `environment.yml` file. See Anaconda documentation.
 # Outcome of Analysis
 
 
